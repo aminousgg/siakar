@@ -8,7 +8,12 @@ class Main extends CI_Controller {
     }
 	//functions
 	public function index(){
-        
-        $this->load->view('siswa/utama');
-	}
+        $data['judul']="Menu Utama";
+        $data['sub_judul']="Dashboard";
+        $this->load->view('siswa/utama',$data);
+    }
+    
+    public function test(){
+        echo $this->agent->platform().' - '.$this->agent->browser().' '.$this->agent->version();
+    }
 }
