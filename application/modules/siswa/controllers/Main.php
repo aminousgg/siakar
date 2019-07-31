@@ -25,4 +25,6 @@ class Main extends CI_Controller {
         echo $this->agent->platform().' - '.$this->agent->browser().' '.$this->agent->version();
         $this->session->unset_userdata('sesi');
     }
+
+    
 }

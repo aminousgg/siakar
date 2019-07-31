@@ -64,6 +64,7 @@ class Siswa_baru extends CI_Controller {
         );
         if($this->auth->save_bio($data,$alamat)){
             $siswa = $this->auth->siswa($this->session->userdata('username'))->row_array();
+            $this->session->unset_userdata('username');
             $sesi = array(
                 'nisn'  => $siswa['nisn'],
                 'nama'  => $siswa['nama'],

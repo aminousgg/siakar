@@ -42,34 +42,7 @@
 				?>
 				<?php  ?>
 				<!-- isi -->
-				<div class="page-inner mt--5">
-				  <div class="row">
-					<div class="col-md-4">
-					  <div class="card card-profile">
-							<div class="card-header" style="background-image: url('<?= base_url('assets') ?>/assets/img/blogpost.jpg')">
-								<div class="profile-picture">
-									<div class="avatar avatar-xl">
-										<img src="<?= base_url('assets') ?>/assets/img/profile.jpg" class="avatar-img rounded-circle">
-									</div>
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="user-profile text-center">
-								  <div class="name">Nama Siswa</div>
-								  <div class="job">Kelas</div>
-								  <div class="desc">A man who hates loneliness</div>
-								  <div class="view-profile">
-								  	<a href="#" class="btn btn-secondary btn-block">View Full Profile</a>
-								  </div>
-								</div>
-							</div>
-							<!-- <div class="card-footer">
-								
-							</div> -->
-					  </div>
-					</div>
-				  </div>
-				</div>
+				<?php $this->load->view('siswa/dashboard') ?>
 				<!-- end isi -->
 			</div>
 			<!-- footer -->

@@ -8,8 +8,10 @@
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
-									Hizrian
-									<span class="user-level">Administrator</span>
+									<?= $this->session->userdata('sesi')['nama'] ?>
+									<span class="user-level">
+									  <?= $this->session->userdata('sesi')['nisn'] ?>
+									</span>
 								</span>
 							</a>
 							<div class="clearfix"></div>
@@ -30,32 +32,73 @@
 						</li>
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#charts">
-								<i class="far fa-chart-bar"></i>
-								<p>Charts</p>
+								<i class="fas fa-bookmark"></i>
+								<p>Akademik</p>
 								<span class="caret"></span>
 							</a>
 							<div class="collapse" id="charts">
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="charts/charts.html">
-											<span class="sub-item">Chart Js</span>
+											<span class="sub-item">Mata Pelajaran</span>
 										</a>
 									</li>
 									<li>
 										<a href="charts/sparkline.html">
-											<span class="sub-item">Sparkline</span>
+											<span class="sub-item">Raport</span>
+										</a>
+									</li>
+									<li>
+										<a href="charts/sparkline.html">
+											<span class="sub-item">Daftar Nilai</span>
 										</a>
 									</li>
 								</ul>
 							</div>
 						</li>
 						<li class="nav-item">
-							<a href="widgets.html">
-								<i class="fas fa-desktop"></i>
-								<p>Widgets</p>
-								<span class="badge badge-success">4</span>
+							<a data-toggle="collapse" href="#charts">
+								<i class="fas fa-book"></i>
+								<p>Dokumen</p>
+								<span class="caret"></span>
 							</a>
+							<div class="collapse" id="charts">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="charts/charts.html">
+											<span class="sub-item">Absensi</span>
+										</a>
+									</li>
+									<li>
+										<a href="charts/sparkline.html">
+											<span class="sub-item">Materi Ajar</span>
+										</a>
+									</li>
+								</ul>
+							</div>
 						</li>
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#charts">
+								<i class="fas fa-address-card"></i>
+								<p>Profile | Biodata</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="charts">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="charts/charts.html">
+											<span class="sub-item">Datadiri</span>
+										</a>
+									</li>
+									<li>
+										<a href="charts/sparkline.html">
+											<span class="sub-item">Data Akademik</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						
 					</ul>
 				</div>
 			</div>
