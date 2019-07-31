@@ -39,10 +39,11 @@ class Main extends CI_Controller {
                     $siswa=$this->auth->akun_sesi($where);
                     if($siswa==false){
                         $this->session->set_userdata('sesi','private');
+                        $this->session->set_userdata('username',$this->input->post('username'));
                         redirect(base_url('auth/siswa_baru'));
                     }else{
                         // set sesi
-                        if( $siswa['nama']!=null&&$siswa['email']!=null&&$siswa['gender']!=null&&$siswa['agama']!=null&&$siswa['golongan_darah']!=null&&$siswa['no_hp']!=null&&$siswa['kode_alamat']!=null&&$siswa['tmp_lahir']!=null ){
+                        if( $siswa['nama']!=null&&$siswa['email']!=null&&$siswa['gender']!=null&&$siswa['agama']!=null&&$siswa['golongan_darah']!=null&&$siswa['no_hp']!=null&&$siswa['tmp_lahir']!=null ){
                             $sesi = array(
                                 'nisn'  => $siswa['nisn'],
                                 'nama'  => $siswa['nama'],
@@ -65,5 +66,9 @@ class Main extends CI_Controller {
             // redirect index
             echo "hai";
         }
+    }
+    
+    public function get_kota(){
+       echo json_encode($this->auth->kota());
     }
 }
