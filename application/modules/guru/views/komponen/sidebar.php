@@ -3,7 +3,7 @@
 				<div class="sidebar-content">
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
-							<img src="<?= base_url('assets') ?>/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+							<img src="<?= base_url('assets') ?>/assets/img/user.png" alt="..." class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -40,17 +40,17 @@
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="charts/charts.html">
-											<span class="sub-item">Mata Pelajaran</span>
+											<span class="sub-item">Mengajar</span>
 										</a>
 									</li>
 									<li>
 										<a href="charts/sparkline.html">
-											<span class="sub-item">Raport</span>
+											<span class="sub-item">Perwalian</span>
 										</a>
 									</li>
 									<li>
 										<a href="charts/sparkline.html">
-											<span class="sub-item">Daftar Nilai</span>
+										  <span class="sub-item">Daftar Nilai</span>
 										</a>
 									</li>
 								</ul>
