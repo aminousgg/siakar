@@ -59,7 +59,7 @@
 									</li>
 									<li>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="<?= base_url('siswa/main/logout') ?>">Logout</a>
+										<a class="dropdown-item" href="<?= base_url('guru/main/logout') ?>">Logout</a>
 									</li>
 								</div>
 							</ul>

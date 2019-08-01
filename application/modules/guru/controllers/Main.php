@@ -5,20 +5,23 @@ class Main extends CI_Controller {
     function __construct() {
         parent::__construct();
         if(!$this->session->userdata('sesi')){
-            redirect(base_url('auth/main/siswa'));
+            redirect(base_url('auth/main/guru'));
         }
-        if($this->session->userdata('sesi')['level']!='siswa'){
-            redirect(base_url('auth/main/siswa'));
+        if($this->session->userdata('sesi')['level']!='guru'){
+            redirect(base_url('auth/main/guru'));
         }
         if($this->session->userdata('sesi')=='private'){
             redirect(base_url('auth/siswa_baru'));
+        }
+        if($this->session->userdata('sesi')=='private_guru'){
+            redirect(base_url('auth/guru_baru'));
         }
     }
 	//functions
 	public function index(){
         $data['judul']="Menu Utama";
         $data['sub_judul']="Dashboard";
-        $this->load->view('siswa/utama',$data);
+        $this->load->view('guru/utama',$data);
     }
     
     public function test(){
@@ -28,7 +31,7 @@ class Main extends CI_Controller {
 
     public function logout(){
         $this->session->unset_userdata('sesi');
-        redirect(base_url('siswa'));
+        redirect(base_url('guru'));
     }
 
 }

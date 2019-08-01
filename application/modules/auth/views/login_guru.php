@@ -25,8 +25,8 @@
 		<div class="container container-login animated fadeIn">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 class="text-center">Sign In</h3>
-					<?= form_open('auth/main/login') ?>
+					<h3 class="text-center">Akses Guru</h3>
+					<?= form_open('auth/main/login_guru') ?>
 					<div id="error-add"></div>
 					<div class="login-form">
 						<div class="form-group form-floating-label">
@@ -44,7 +44,7 @@
 							<button type="submit" class="btn btn-primary btn-rounded btn-login">Sign In</button>
 						</div>
 					</div>
-					<input type="hidden" name="level" value="siswa">
+					<input type="hidden" name="level" value="guru">
 					<?= form_close() ?>
 				</div>
 			</div>

@@ -22,6 +22,7 @@ class Auth extends CI_Model
     public function akun_sesi($where){
         $this->db->select('level');
         $data=$this->db->get_where('akun',$where)->row_array();
+        // var_dump($data['level']); die;
         if($data['level']=="siswa"){
             $ceksiswa=$this->db->get_where('siswa',array('nisn'=>$where['username']))->num_rows();
             if($ceksiswa>0){
@@ -30,11 +31,19 @@ class Auth extends CI_Model
                return false;
             }
         }elseif($data['level']=="guru"){
-
+            $cekguru=$this->db->get_where('guru',array('nip'=>$where['username']))->num_rows();
+            if($cekguru>0){
+               return $this->get_guru($where['username'])->row_array();
+            }else{
+               return false;
+            }
         }
     }
     private function get_siswa($nisn){
         return $this->db->get_where('siswa',array('nisn'=>$nisn));
+    }
+    private function get_guru($nip){
+        return $this->db->get_where('guru',array('nip'=>$nip));
     }
 
     public function kota(){
@@ -58,7 +67,18 @@ class Auth extends CI_Model
         }
     }
 
+    public function save_bioguru($data,$alamat){
+        if($this->db->insert('guru',$data)&&$this->db->insert('alamat',$alamat)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function siswa($nisn){
         return $this->db->get_where('siswa',array('nisn'=>$nisn));
+    }
+    public function guru($nip){
+        return $this->db->get_where('guru',array('nip'=>$nip));
     }
 }
