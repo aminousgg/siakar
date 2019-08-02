@@ -25,14 +25,14 @@ class Admin extends CI_Model
        return $this->db->get('kelas');
    }
    public function mapel(){
-       $this->db->group_by('mapel');
-       return $this->db->get('mata_pelajaran');
+       return $this->db->get('mapel_only');
    }
    public function guru_mapel($mapel){
        return $this->db->query('
-            SELECT mp.`id`, mp.`kode_mapel`, mp.`nip_guru`, mp.`mapel`, g.`nama`
-            FROM mata_pelajaran mp JOIN guru g ON mp.`nip_guru`=g.`nip`
-            WHERE mp.`mapel`="'.$mapel.'"
+            SELECT mp.`id`, mp.`kode_mapel`, mo.`nama_mapel`, mp.`nip_guru`, g.`nama`
+            FROM mata_pelajaran mp JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+            JOIN guru g ON mp.`nip_guru`=g.`nip`
+            WHERE mo.`nama_mapel`="'.$mapel.'"
        ');
    }
 
@@ -53,11 +53,12 @@ class Admin extends CI_Model
    }
    public function get_classroom(){
        return $this->db->query('
-            SELECT c.`kode_room`, c.`nisn`, s.`nama` AS nama_siswa, c.`kode_mapel`, mp.`mapel`, c.`id_kelas`, k.`kelas`, c.`nip`, g.`nama` AS nama_guru
-            FROM classroom c JOIN siswa s ON c.`nisn`=s.`nisn`
-            JOIN mata_pelajaran mp ON c.`kode_mapel`=mp.`kode_mapel`
-            JOIN kelas k ON c.`id_kelas`=k.`id`
-            JOIN guru g ON c.`nip`=g.`nip`
+            SELECT cr.`id`, cr.`kode_room`, cr.`nisn`, s.`nama` AS nama_siswa, cr.`id_mata_pelajaran`, mo.`nama_mapel`, k.`kelas`, k.`kode_kelas`, g.`nip`, g.`nama` AS nama_guru
+            FROM classroom cr JOIN siswa s ON cr.`nisn`=s.`nisn`
+            JOIN mata_pelajaran mp ON cr.`id_mata_pelajaran`=mp.`id`
+            JOIN kelas k ON cr.`id_kelas`=k.`id`
+            JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+            JOIN guru g ON mp.`nip_guru`=g.`nip`
        ');
    }
 
@@ -66,5 +67,25 @@ class Admin extends CI_Model
    }
    public function in_pelajaran($data){
         return $this->db->insert('mapel_only',$data);
+   }
+
+   public function mapel_ajaran(){
+       return $this->db->query('
+            SELECT mp.`id`, mp.`kode_mapel`, mo.`nama_mapel`, mp.`nip_guru`, g.`nama`
+            FROM mata_pelajaran mp JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+            JOIN guru g ON mp.`nip_guru`=g.`nip`
+       ');
+   }
+
+   public function in_pengajar($data){
+       return $this->db->insert('mata_pelajaran',$data);
+   }
+   public function cek_pengajar($data){
+       $cek = $this->db->get_where('mata_pelajaran',$data);
+       if($cek->num_rows()>0){
+           return false; // konfirmasi jika ada = flase
+       }else{
+           return true;
+       }
    }
 }

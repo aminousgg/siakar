@@ -43,9 +43,8 @@ class Classroom extends CI_Controller {
         $data = array(
             'kode_room' => $kode_room,
             'nisn'      => $this->input->post('siswa'),
-            'kode_mapel'=> $this->input->post('kode_mapel'),
+            'id_mata_pelajaran'=> $this->input->post('id_mapel'),
             'id_kelas'=> $this->input->post('kode_kelas'),
-            'nip'       => $mapel['nip_guru']
         );
         if($this->admin->in_classroom($data)){
             $this->session->set_flashdata('alert_success', 'Berhasil insert classroom');
@@ -63,8 +62,8 @@ class Classroom extends CI_Controller {
             $tbody[]    = $i;
             $tbody[]    = $row['kode_room'];
             $tbody[]    = $row['nama_siswa'];
-            $tbody[]    = $row['mapel'];
-            $tbody[]    = $row['kelas'];
+            $tbody[]    = $row['nama_mapel'];
+            $tbody[]    = $row['kelas']." ".$row['kode_kelas'];
             $tbody[]    = $row['nama_guru'];
             $data[]     = $tbody;
             $i++;

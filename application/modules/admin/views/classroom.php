@@ -73,7 +73,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Pilih Guru</label>
                         <div class="col-sm-9">
-                            <select name="kode_mapel" class="form-control" id="select_guru">
+                            <select name="id_mapel" class="form-control" id="select_guru">
                               <option value="">-- Pilih Guru pengajar --</option>
                             </select>
                         </div>

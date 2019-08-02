@@ -139,6 +139,7 @@ $(document).ready(function(){
         url : "<?= base_url('admin/classroom/get_siswa') ?>",
         success : function(data){
             data = JSON.parse(data);
+            console.log(data);
             var isi = '<option value="">-> Pilih Siswa <-</option>';
             for(var i in data){
                 isi += '<option value="'+data[i].nisn+'">'+data[i].nama+'</option>';
@@ -170,7 +171,7 @@ $(document).ready(function(){
             data = JSON.parse(data);
             console.log(data);
             for(var i in data){
-                isi += '<option value="'+data[i].mapel+'">'+data[i].mapel+'</option>';
+                isi += '<option value="'+data[i].nama_mapel+'">'+data[i].nama_mapel+'</option>';
             }
             $('#select_mapel').html(isi);
         }
@@ -186,8 +187,9 @@ $(document).ready(function(){
             success : function(data){
                 var isi = '<option value="">-->Pilih guru<--</option>'
                 data = JSON.parse(data);
+                // console.log(data);
                 for(var i in data){
-                    isi += '<option value="'+data[i].kode_mapel+'">'+data[i].nama+'</option>';
+                    isi += '<option value="'+data[i].id+'">'+data[i].nama+'</option>';
                 }
                 $('#select_guru').html(isi);
             }
@@ -203,8 +205,42 @@ $(document).ready(function(){
         "bInfo" : false
     });
     $('#mapel_diampu').dataTable({
-        "ajax"    : "<?= base_url('admin/matapelajaran/get_pelajaran') ?>",
+        "ajax"    : "<?= base_url('admin/matapelajaran/mapelajar') ?>",
         "ordering": false,
+    });
+    $('.peng').on('click', function(){
+        $('.l_pengajar').hide();
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/matapelajaran/get_mapel') ?>",
+            success : function(data){
+                data = JSON.parse(data);
+                // console.log(data);
+                var isi = '<option value="" hidden>-> Pilih Mata Pelajaran <-</option>';
+                for(var i in data){
+                    isi += '<option value="'+data[i].kode_pel+'">'+data[i].nama_mapel+'</option>';
+                }
+                $(".s_pelajaran").html(isi);
+            }
+        });
+    });
+    $('.s_pelajaran').on('change', function(){
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/matapelajaran/get_guru') ?>",
+            success : function(data){
+                $('.l_pengajar').show();
+                data = JSON.parse(data);
+                console.log(data);
+                var isi = '<option value="" hidden>-> Pilih Mata Pelajaran <-</option>';
+                for(var i in data){
+                    isi += '<option value="'+data[i].nip+'">'+data[i].nama+'</option>';
+                }
+                $('.s_pengajar').html(isi);
+            }
+        });
     });
 
     // alert
