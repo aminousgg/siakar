@@ -20,16 +20,16 @@
             <li>
                 <a href="#"><span class="nav-label">Data Sekolah</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="<?= base_url('admin/main/guru') ?>">Guru</a></li>
-                    <li><a href="<?= base_url('admin/main/siswa') ?>">Siswa</a></li>
-                    <li><a href="<?= base_url('admin/main/kelas') ?>">Kelas</a></li>
+                    <li><a href="<?= base_url('admin/guru') ?>">Guru</a></li>
+                    <li><a href="<?= base_url('admin/siswa') ?>">Siswa</a></li>
+                    <li><a href="<?= base_url('admin/kelas') ?>">Kelas</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><span class="nav-label">KBM</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="#">Mata pelajaran</a></li>
-                    <li><a href="">Kelas</a></li>
+                    <li><a href="<?= base_url('admin/matapelajaran') ?>">Mata pelajaran</a></li>
+                    <li><a href="<?= base_url('admin/classroom') ?>">Kelas room</a></li>
                 </ul>
             </li>
         </ul>

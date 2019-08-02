@@ -210,7 +210,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="color-line"></div>
-            <?= form_open('admin/main/tambah_jurusan') ?>
+            <?= form_open('admin/kelas/tambah_jurusan') ?>
                 <div class="modal-header">
                     <h6 class="modal-title">Tambah Jurusan</h6>
                 </div>
@@ -241,7 +241,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="color-line"></div>
-            <?= form_open('admin/main/tambah_kelas') ?>
+            <?= form_open('admin/kelas/tambah_kelas') ?>
                 <div class="modal-header">
                     <h6 class="modal-title">Tambah Kelas</h6>
                 </div>

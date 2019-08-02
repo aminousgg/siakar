@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="<?= base_url('homer') ?>/vendor/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="<?= base_url('homer') ?>/vendor/sweetalert/lib/sweet-alert.css" />
     <link rel="stylesheet" href="<?= base_url('homer') ?>/vendor/toastr/build/toastr.min.css" />
+    <link rel="stylesheet" href="<?= base_url('homer') ?>/vendor/select2-3.5.2/select2.css" />
 
     <!-- App styles -->
     <link rel="stylesheet" href="<?= base_url('homer') ?>/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
@@ -96,32 +97,117 @@
 <script src="<?= base_url('homer') ?>/vendor/sparkline/index.js"></script>
 <script src="<?= base_url('homer') ?>/vendor/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="<?= base_url('homer') ?>/vendor/toastr/build/toastr.min.js"></script>
+<script src="<?= base_url('homer') ?>/vendor/select2-3.5.2/select2.min.js"></script>
 <!-- App scripts -->
 <script src="<?= base_url('homer') ?>/scripts/homer.js"></script>
 <script>
 $(document).ready(function(){
+    // guru
     $('#tabledata').dataTable({
-        "ajax"    : "<?= base_url('admin/main/get_guru') ?>",
+        "ajax"    : "<?= base_url('admin/guru/get_guru') ?>",
         "ordering": false
     });
+    // siswa
     $('#tablesiswa').dataTable({
-        "ajax"    : "<?= base_url('admin/main/get_siswa') ?>",
+        "ajax"    : "<?= base_url('admin/siswa/get_siswa') ?>",
         "ordering": false
     });
     // table kelas
     $('#kelas').dataTable({
-        "ajax"    : "<?= base_url('admin/main/get_kelas') ?>",
+        "ajax"    : "<?= base_url('admin/kelas/get_kelas') ?>",
         "ordering": false,
         "searching": false
     });
     // table jurusan
     $('#jurusan').dataTable({
-        "ajax"    : "<?= base_url('admin/main/get_jurusan') ?>",
+        "ajax"    : "<?= base_url('admin/kelas/get_jurusan') ?>",
         "ordering": false,
         "paging"  : false,
         "searching": false,
-        "select"   : false
+        "bInfo" : false
     });
+    // classroom
+    $(".js-source-states").select2();
+    $('#classroom').dataTable({
+        "ajax"  : "<?= base_url('admin/classroom/view_classroom') ?>",
+        "ordering": false
+    });
+        // ambil siswa
+    $.ajax({
+        type : "GET",
+        datatype : "json",
+        url : "<?= base_url('admin/classroom/get_siswa') ?>",
+        success : function(data){
+            data = JSON.parse(data);
+            var isi = '<option value="">-> Pilih Siswa <-</option>';
+            for(var i in data){
+                isi += '<option value="'+data[i].nisn+'">'+data[i].nama+'</option>';
+            }
+            $('#select_siswa').html(isi);
+        }
+    });
+        // ambil kelas
+    $.ajax({
+        type : "GET",
+        datatype : "json",
+        url : "<?= base_url('admin/classroom/get_kelas') ?>",
+        success : function(data){
+            var isi = '<option value="">-- Pilih Kelas --</option>';
+            data = JSON.parse(data);
+            for(var i in data){
+                isi += '<option value="'+data[i].id+'">'+data[i].kelas+'-'+data[i].kode_kelas+'</option>';
+            }
+            $('#select_kelas').html(isi);
+        }
+    });
+        // ambil mapel
+    $.ajax({
+        type : "GET",
+        datatype : "json",
+        url : "<?= base_url('admin/classroom/get_mapel') ?>",
+        success : function(data){
+            var isi = '<option value="">-- Pilih Kelas --</option>';
+            data = JSON.parse(data);
+            console.log(data);
+            for(var i in data){
+                isi += '<option value="'+data[i].mapel+'">'+data[i].mapel+'</option>';
+            }
+            $('#select_mapel').html(isi);
+        }
+    });
+        // cari guru matkul
+    $("#select_mapel").on('change',function(){
+        var mapel = $(this).val();
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            data : {mapel : mapel},
+            url : "<?= base_url('admin/classroom/get_guru') ?>",
+            success : function(data){
+                var isi = '<option value="">-->Pilih guru<--</option>'
+                data = JSON.parse(data);
+                for(var i in data){
+                    isi += '<option value="'+data[i].kode_mapel+'">'+data[i].nama+'</option>';
+                }
+                $('#select_guru').html(isi);
+            }
+        });
+    });
+
+    // Mata Pelajaran
+    $('#pelajaran').dataTable({
+        "ajax"    : "<?= base_url('admin/matapelajaran/get_pelajaran') ?>",
+        "ordering": false,
+        "paging"  : false,
+        "searching": false,
+        "bInfo" : false
+    });
+    $('#mapel_diampu').dataTable({
+        "ajax"    : "<?= base_url('admin/matapelajaran/get_pelajaran') ?>",
+        "ordering": false,
+    });
+
+    // alert
     toastr.options = {
         "debug": false,
         "newestOnTop": false,
@@ -129,6 +215,7 @@ $(document).ready(function(){
         "closeButton": true,
         "debug": false,
         "toastClass": "animated fadeInDown",
+        "progressBar" : true
     };
     var alert_s = "<?= $this->session->flashdata('alert_success') ?>";
     if(alert_s){
