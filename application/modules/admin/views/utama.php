@@ -132,66 +132,38 @@ $(document).ready(function(){
         "ajax"  : "<?= base_url('admin/classroom/view_classroom') ?>",
         "ordering": false
     });
-        // ambil siswa
-    $.ajax({
-        type : "GET",
-        datatype : "json",
-        url : "<?= base_url('admin/classroom/get_siswa') ?>",
-        success : function(data){
-            data = JSON.parse(data);
-            console.log(data);
-            var isi = '<option value="">-> Pilih Siswa <-</option>';
-            for(var i in data){
-                isi += '<option value="'+data[i].nisn+'">'+data[i].nama+'</option>';
-            }
-            $('#select_siswa').html(isi);
-        }
+    $('#grup_kelas').dataTable({
+        "ajax"    : "<?= base_url('admin/classroom/view_grupkelas') ?>",
+        "ordering": false,
     });
-        // ambil kelas
-    $.ajax({
-        type : "GET",
-        datatype : "json",
-        url : "<?= base_url('admin/classroom/get_kelas') ?>",
-        success : function(data){
-            var isi = '<option value="">-- Pilih Kelas --</option>';
-            data = JSON.parse(data);
-            for(var i in data){
-                isi += '<option value="'+data[i].id+'">'+data[i].kelas+'-'+data[i].kode_kelas+'</option>';
-            }
-            $('#select_kelas').html(isi);
-        }
-    });
-        // ambil mapel
-    $.ajax({
-        type : "GET",
-        datatype : "json",
-        url : "<?= base_url('admin/classroom/get_mapel') ?>",
-        success : function(data){
-            var isi = '<option value="">-- Pilih Kelas --</option>';
-            data = JSON.parse(data);
-            console.log(data);
-            for(var i in data){
-                isi += '<option value="'+data[i].nama_mapel+'">'+data[i].nama_mapel+'</option>';
-            }
-            $('#select_mapel').html(isi);
-        }
-    });
-        // cari guru matkul
-    $("#select_mapel").on('change',function(){
-        var mapel = $(this).val();
+     //kelas grup
+    $(".siswa_select_grup").select2();
+    $("#tambah_grub_kelas").on('click',function(){
         $.ajax({
             type : "GET",
             datatype : "json",
-            data : {mapel : mapel},
-            url : "<?= base_url('admin/classroom/get_guru') ?>",
+            url : "<?= base_url('admin/classroom/get_siswa') ?>",
             success : function(data){
-                var isi = '<option value="">-->Pilih guru<--</option>'
                 data = JSON.parse(data);
-                // console.log(data);
+                console.log(data);
+                var isi = '';
                 for(var i in data){
-                    isi += '<option value="'+data[i].id+'">'+data[i].nama+'</option>';
+                    isi += '<option value="'+data[i].nisn+'">'+data[i].nama+'</option>';
                 }
-                $('#select_guru').html(isi);
+                $('#siswa_select_grup').html(isi);
+            }
+        });
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/classroom/get_walikelas') ?>",
+            success : function(data){
+                var isi = '<option value="">-- Pilih Kelas --</option>';
+                data = JSON.parse(data);
+                for(var i in data){
+                    isi += '<option value="'+data[i].id+'">'+data[i].kelas+'-'+data[i].kode_kelas+'</option>';
+                }
+                $('#select_kelas_grup').html(isi);
             }
         });
     });
@@ -239,6 +211,52 @@ $(document).ready(function(){
                     isi += '<option value="'+data[i].nip+'">'+data[i].nama+'</option>';
                 }
                 $('.s_pengajar').html(isi);
+            }
+        });
+    });
+
+    // akun
+    $('#tableakunsiswa').dataTable({
+        "ajax"    : "<?= base_url('admin/akun/get_akun/siswa') ?>",
+        "ordering": false
+    });
+    $('#tableakunguru').dataTable({
+        "ajax"    : "<?= base_url('admin/akun/get_akun/guru') ?>",
+        "ordering": false
+    });
+
+    // perwalian
+    $('#tableperwalian').dataTable({
+        "ajax"    : "<?= base_url('admin/perwalian/get_walikelas') ?>",
+        "ordering": false
+    });
+    $(".guru_select").select2();
+    $('#tambah_wali').on('click', function(){
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/perwalian/ajax_kelas') ?>",
+            success : function(data){
+                data = JSON.parse(data);
+                var isi = '<option value="">-- Pilih Kelas --</option>';
+                for(var i in data){
+                    isi += '<option value="'+data[i].id+'">'+data[i].kelas+'-'+data[i].kode_kelas+'</option>';
+                }
+                $("#kelas_select").html(isi);
+            }
+        });
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/perwalian/ajax_guru') ?>",
+            success : function(data){
+                data = JSON.parse(data);
+                console.log(data);
+                var isi = '<option value="">-- Pilih guru --</option>';
+                for(var i in data){
+                    isi += '<option value="'+data[i].nip+'">'+data[i].nama+'</option>';
+                }
+                $("#guru_pilih").html(isi);
             }
         });
     });

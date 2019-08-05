@@ -19,7 +19,7 @@
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
                 <li class="dropdown">
-                    <a href="login.html">
+                    <a href="<?= base_url('admin/main/logout') ?>">
                         <i class="pe-7s-upload pe-rotate-90"></i>
                     </a>
                 </li>

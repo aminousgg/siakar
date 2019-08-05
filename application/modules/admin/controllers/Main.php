@@ -16,4 +16,8 @@ class Main extends CI_Controller {
         $data['file']="dashboard";
         $this->load->view('admin/utama',$data);
     }
+    public function logout(){
+        $this->session->unset_userdata('admin');
+        redirect(base_url('admin'));
+    }
 }

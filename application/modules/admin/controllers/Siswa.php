@@ -28,6 +28,9 @@ class Siswa extends CI_Controller {
             $tbody[]    = $row['tmp_lahir'].", ".$row['tgl_lahir'];
             $tbody[]    = $row['no_hp'];
             $tbody[]    = $row['email'];
+            $aksi = '<button class="btn btn-info" type="button"><i class="fa fa-paste"></i> Edit</button>';
+            $aksi .= '<button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Hapus</span></button>';
+            $tbody[]    = $aksi;
             $data[]     = $tbody;
             $i++;
         }

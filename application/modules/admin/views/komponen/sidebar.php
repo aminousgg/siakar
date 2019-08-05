@@ -32,6 +32,12 @@
                     <li><a href="<?= base_url('admin/classroom') ?>">Kelas room</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="<?= base_url('admin/akun') ?>"><span class="nav-label">Akun</span> </a>
+            </li>
+            <li>
+                <a href="<?= base_url('admin/perwalian') ?>"><span class="nav-label">Perwalian</span> </a>
+            </li>
         </ul>
     </div>
 </aside>

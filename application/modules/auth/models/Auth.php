@@ -68,7 +68,7 @@ class Auth extends CI_Model
     }
 
     public function save_bioguru($data,$alamat){
-        if($this->db->insert('guru',$data)&&$this->db->insert('alamat',$alamat)){
+        if($this->db->insert('guru',$data)&&$this->db->insert('alamat_guru',$alamat)){
             return true;
         }else{
             return false;

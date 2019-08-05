@@ -88,4 +88,41 @@ class Admin extends CI_Model
            return true;
        }
    }
+   public function akun($who){
+       return $this->db->get_where('akun',array('level'=>$who));
+   }
+   public function walikelas(){
+       return $this->db->query('
+            SELECT wk.`id`, wk.`kode_wali`, wk.`id_kelas`, wk.`tahun_ajaran`, k.`kelas`, k.`kode_jurusan`, j.`jurusan`, k.`kode_kelas`, wk.`nip_guru`, g.`nama`
+            FROM walikelas wk JOIN kelas k ON wk.`id_kelas`=k.`id`
+            JOIN guru g ON wk.`nip_guru`=g.`nip`
+            JOIN jurusan j ON k.`kode_jurusan`=j.`kode_jurusan`
+       ');
+   }
+
+   public function tambahakun($data){
+       return $this->db->insert('akun',$data);
+   }
+   public function grub_kelas(){
+      return $this->db->query('
+            SELECT gk.`id`, gk.`nisn`, s.`nama` AS nama_siswa, gk.`id_kelas`, k.`kelas`, k.`kode_kelas`, g.`nama` AS nama_guru
+            FROM grup_kelas gk JOIN siswa s ON gk.`nisn`=s.`nisn`
+            JOIN kelas k ON gk.`id_kelas`=k.`id`
+            JOIN walikelas wk ON gk.`kode_walikelas`=wk.`kode_wali`
+            JOIN guru g ON wk.`nip_guru`=g.`nip`
+       ');
+   }
+   public function get_walikelas(){
+       return $this->db->query('
+        SELECT k.`id`, k.`kelas`, k.`kode_kelas`
+        FROM walikelas wk JOIN kelas k ON wk.`id_kelas`=k.`id`
+       ');
+   }
+   public function ambil_kodewalikelas($kelas_id){
+       return $this->db->query('
+            SELECT k.`id`, k.`kelas`, k.`kode_kelas`, wk.`kode_wali`
+            FROM walikelas wk JOIN kelas k ON wk.`id_kelas`=k.`id`
+            WHERE k.`id`="'.$kelas_id.'"
+        ')->row_array();
+   }
 }
