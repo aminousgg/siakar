@@ -53,11 +53,14 @@ class Admin extends CI_Model
    }
    public function get_classroom(){
        return $this->db->query('
-            SELECT cr.`id`, cr.`kode_room`, cr.`nisn`, s.`nama` AS nama_siswa, cr.`id_mata_pelajaran`, mo.`nama_mapel`, k.`kelas`, k.`kode_kelas`, g.`nip`, g.`nama` AS nama_guru
-            FROM classroom cr JOIN siswa s ON cr.`nisn`=s.`nisn`
-            JOIN mata_pelajaran mp ON cr.`id_mata_pelajaran`=mp.`id`
-            JOIN kelas k ON cr.`id_kelas`=k.`id`
+            SELECT cr.`kode_room`, cr.`id_mata_pelajaran`, mp.`kode_mapel`, mo.`nama_mapel`, cr.`id_grup_kelas`,
+            gk.`nisn`, s.`nama` AS nama_siswa, k.`kelas`,
+            k.`kode_kelas`, g.`nip`, g.`nama` AS nama_guru 
+            FROM classroom cr JOIN mata_pelajaran mp ON cr.`id_mata_pelajaran`=mp.`id`
+            JOIN grup_kelas gk ON cr.`id_grup_kelas`=gk.`id`
             JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+            JOIN siswa s ON gk.`nisn`=s.`nisn`
+            JOIN kelas k ON gk.`id_kelas`=k.`id`
             JOIN guru g ON mp.`nip_guru`=g.`nip`
        ');
    }
@@ -124,5 +127,21 @@ class Admin extends CI_Model
             FROM walikelas wk JOIN kelas k ON wk.`id_kelas`=k.`id`
             WHERE k.`id`="'.$kelas_id.'"
         ')->row_array();
+   }
+   public function siswa_grub(){
+        return $this->db->query('
+            SELECT gk.`id`, gk.`nisn`, s.`nama`, k.`kelas`, k.`kode_kelas`
+            FROM grup_kelas gk JOIN siswa s ON gk.`nisn`=s.`nisn`
+            JOIN kelas k ON gk.`id_kelas`=k.`id`
+            JOIN walikelas wk ON gk.`kode_walikelas`=wk.`kode_wali`
+            JOIN guru g ON wk.`nip_guru`=g.`nip`
+        ');
+   }
+   public function guru_pengajar(){
+        return $this->db->query('
+            SELECT mp.`id`, mp.`kode_mapel`, mo.`nama_mapel`, mp.`nip_guru`, g.`nama`
+            FROM mata_pelajaran mp JOIN guru g ON mp.`nip_guru`=g.`nip`
+            JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+        ');
    }
 }

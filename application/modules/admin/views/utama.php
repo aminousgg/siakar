@@ -136,6 +136,35 @@ $(document).ready(function(){
         "ajax"    : "<?= base_url('admin/classroom/view_grupkelas') ?>",
         "ordering": false,
     });
+    $("#tambah_classroom").on('click', function(){
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/classroom/get_siswa_terdaftarwali') ?>",
+            success : function(data){
+                data = JSON.parse(data);
+                // console.log(data);
+                var isi = '<option value="" hidden>-- Pilih Siswa --</option>';
+                for(var i in data){
+                    isi += '<option value="'+data[i].id+'">'+data[i].nama+' - '+data[i].kelas+' '+data[i].kode_kelas+'</option>';
+                }
+                $("#select_siswa_room").html(isi);
+            }
+        });
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            url : "<?= base_url('admin/classroom/guru_mapel') ?>",
+            success : function(data){
+                data = JSON.parse(data);
+                var isi = '<option value="">-- Pilih Mapel --</option>';
+                for(var i in data){
+                    isi += '<option value="'+data[i].id+'">'+data[i].nama_mapel+' - '+data[i].nama+'</option>';
+                }
+                $("#select_mapel_class").html(isi);
+            }
+        });
+    });
      //kelas grup
     $(".siswa_select_grup").select2();
     $("#tambah_grub_kelas").on('click',function(){

@@ -30,39 +30,35 @@ class Classroom extends CI_Controller {
         $data = $this->admin->get_walikelas()->result();
         echo json_encode($data);
     }
-    public function get_mapel(){
-        $data = $this->admin->mapel()->result();
-        echo json_encode($data);
-    }
+    // public function get_mapel(){
+    //     $data = $this->admin->mapel()->result();
+    //     echo json_encode($data);
+    // }
     public function get_guru(){
         $mapel=$this->input->get('mapel');
         $data = $this->admin->guru_mapel($mapel)->result();
         echo json_encode($data);
     }
-
+    public function get_siswa_terdaftarwali(){
+        echo json_encode($this->admin->siswa_grub()->result());
+    }
+    public function guru_mapel(){
+        echo json_encode($this->admin->guru_pengajar()->result());
+    }
     public function tambah_classroom(){
-        // $where = array(
-        //     'nisn'      => $this->input->post('siswa'),
-        //     'id_mata_pelajaran'=> $this->input->post('id_mapel'),
-        //     'id_kelas'=> $this->input->post('kode_kelas'),
-        // );
-        $kode_room = (string)rand(1000,9999);
-        $kd_mapel = $this->input->post('kode_mapel');
-        $mapel = $this->admin->data_mapel($kd_mapel)->row_array();
         $data = array(
-            'kode_room' => $kode_room,
-            'nisn'      => $this->input->post('siswa'),
-            'id_mata_pelajaran'=> $this->input->post('id_mapel'),
-            'id_kelas'=> $this->input->post('kode_kelas'),
+            'kode_room' => rand(1000,9999),
+            'id_mata_pelajaran' => $this->input->post('id_mapel'),
+            'id_grup_kelas' => $this->input->post('id_grup_kelas'),
+            'tahun_ajaran' => "2019/2020"
         );
-        if($this->admin->in_classroom($data)){
-            $this->session->set_flashdata('alert_success', 'Berhasil insert classroom');
+        if($this->db->insert('classroom',$data)){
+            $this->session->set_flashdata('alert_success','Berhasil menambah');
             redirect(base_url('admin/classroom'));
         }else{
-            $this->session->set_flashdata('alert_gagal', 'gagal insert classroom');
+            $this->session->set_flashdata('alert_gagal','Gagal menambah');
             redirect(base_url('admin/classroom'));
         }
-
     }
     public function view_classroom(){
         $response = $this->admin->get_classroom()->result_array();

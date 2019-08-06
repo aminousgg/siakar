@@ -8,7 +8,7 @@
                    <strong>Kumpulan siswa mengampu mata pelajaran dan diajar oleh siapa</strong> 
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success pull-right m-b" title="Tambahkan Siswa ke kelas" data-toggle="modal" data-target="#room_">
+                    <button id="tambah_classroom" class="btn btn-success pull-right m-b" data-toggle="modal" data-target="#room_">
                         Tambah
                     </button>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Nisn</label>
                         <div class="col-sm-9">
-                            <select class="js-source-states" name="siswa" id="select_siswa" style="width: 100%">
+                            <select class="js-source-states" name="id_grup_kelas" id="select_siswa_room" style="width: 100%">
                                 <option value="1">alsnfd</option>
                                 <option value="1">blsnfd</option>
                                 <option value="1">flsnfd</option>
@@ -92,30 +92,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Pilih Kelas</label>
-                        <div class="col-sm-9">
-                            <select name="kode_kelas" class="form-control" id="select_kelas">
-                              <option value="">-- Pilih Kelas --</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Pilih Mapel</label>
                         <div class="col-sm-9">
-                            <select name="mapel" class="form-control" id="select_mapel">
+                            <select name="id_mapel" class="form-control" id="select_mapel_class">
                               <option value="">-- Pilih Mata Pelajaran --</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Pilih Guru</label>
-                        <div class="col-sm-9">
-                            <select name="id_mapel" class="form-control" id="select_guru">
-                              <option value="">-- Pilih Guru pengajar --</option>
-                            </select>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
