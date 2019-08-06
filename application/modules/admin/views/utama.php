@@ -103,10 +103,97 @@
 <script>
 $(document).ready(function(){
     // guru
+    var page = "<?= $judul ?>";
     $('#tabledata').dataTable({
         "ajax"    : "<?= base_url('admin/guru/get_guru') ?>",
         "ordering": false
     });
+    $("#table_guru").on('click','.edit_guru', function(){
+        var id =  $(this).data('id');
+        $.ajax({
+            type : 'get',
+            datatype : 'json',
+            data : {id:id},
+            url : '<?= base_url('admin/guru/view_edit') ?>',
+            success : function(data){
+                data = JSON.parse(data);
+                console.log(data);
+            }
+        });
+    });
+    if(page=="Guru"){
+        $('.tempat_lahir, .kota, .prov').select2({
+            theme: "bootstrap"
+        });
+        $.ajax({
+            type		: "GET",
+            url			: "<?= base_url('auth/guru_baru/get_kota') ?>",
+            datatype 	: "JSON",
+            success		: (data)=>{
+                var res = JSON.parse(data);
+                var isi = "<option value=''>-- Pilih Kota --</option>";
+                for(var i in res){
+                    // console.log(res[i].name);
+                    isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
+                }
+                $('.tempat_lahir').html(isi);
+            }
+        });
+        // prov
+        $.ajax({
+            type		: "GET",
+            url			: "<?= base_url('auth/guru_baru/get_prov') ?>",
+            datatype 	: "JSON",
+            success		: (data)=>{
+                var res = JSON.parse(data);
+                var isi = "<option value=''>-- Pilih Provinsi --</option>";
+                for(var i in res){
+                    // console.log(res[i].name);
+                    isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
+                }
+                $('.prov').html(isi);
+            }
+        });
+
+        $('.prov').on('change', function(){
+            var id = $(this).val();
+            $.ajax({
+                type		: "GET",
+                url			: "<?= base_url('auth/guru_baru/kotaFromprov') ?>",
+                datatype 	: "JSON",
+                data		: {id:id},
+                success		: (data)=>{
+                    var res = JSON.parse(data);
+                    var isi = "<option value=''>-- Pilih Kota --</option>";
+                    for(var i in res){
+                        // console.log(res[i].name);
+                        isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
+                    }
+                    $('.kota').html(isi);
+                    $('.kec').html("<option value=''>-- Pilih Kec --</option>");
+                }
+            });
+        });
+        $('.kota').on('change', function(){
+            var id = $(this).val();
+            $.ajax({
+                type		: "GET",
+                url			: "<?= base_url('auth/guru_baru/kecFromkota') ?>",
+                datatype 	: "JSON",
+                data		: {id:id},
+                success		: (data)=>{
+                    var res = JSON.parse(data);
+                    var isi = "<option value=''>-- Pilih Kecamatan --</option>";
+                    for(var i in res){
+                        // console.log(res[i].name);
+                        isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
+                    }
+                    $('.kec').html(isi);
+                }
+            });
+        });
+    }
+    
     // siswa
     $('#tablesiswa').dataTable({
         "ajax"    : "<?= base_url('admin/siswa/get_siswa') ?>",

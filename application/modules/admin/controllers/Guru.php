@@ -27,8 +27,8 @@ class Guru extends CI_Controller {
             $tbody[]    = $row['tmp_lahir'].", ".$row['tgl_lahir'];
             $tbody[]    = $row['no_hp'];
             $tbody[]    = $row['email'];
-            $aksi = '<button class="btn btn-info" type="button"><i class="fa fa-paste"></i> Edit</button>';
-            $aksi .= '<button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Hapus</span></button>';
+            $aksi = '<button class="btn btn-info edit_guru" data-id="'.$row['id'].'" type="button" data-toggle="modal" data-target="#edit_guru_m"><i class="fa fa-paste"></i> Edit</button>';
+            $aksi .= '<button class="btn btn-danger hapus" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Hapus</span></button>';
             $tbody[]    = $aksi;
             $data[]     = $tbody;
             $i++;
@@ -46,5 +46,26 @@ class Guru extends CI_Controller {
             ]);
         }
     }
-
+    public function view_edit(){
+        $id =  $this->input->get('id');
+        echo json_encode($this->db->get_where('guru',array('id'=>$id))->row_array());
+    }
+    public function in_edit(){
+        $data = array(
+            'nip'           => $this->input->post('nip'),
+            'nama'          => $this->input->post('nama'),
+            'tmp_lahir'     => $this->input->post('tmp_lahir'),
+            'tgl_lahir'     => $this->input->post('tgl_lahir'),
+            'gender'        => $this->input->post('gender'),
+            'agama'         => $this->input->post('agama'),
+            'golongan_darah'=> $this->input->post('goldar'),
+            'jabatan'       => $this->input->post('jabatan'),
+            'status'        => $this->input->post('status'),
+            'tgl_masuk'     => $this->input->post('tgl_masuk'),
+            'no_hp'         => $this->input->post('no_hp'),
+            'email'         => $this->input->post('email'),
+            'kode_pos'      => "",
+        );
+        var_dump($data);
+    }
 }
