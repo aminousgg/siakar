@@ -53,15 +53,12 @@ class Admin extends CI_Model
    }
    public function get_classroom(){
        return $this->db->query('
-            SELECT cr.`kode_room`, cr.`id_mata_pelajaran`, mp.`kode_mapel`, mo.`nama_mapel`, cr.`id_grup_kelas`,
-            gk.`nisn`, s.`nama` AS nama_siswa, k.`kelas`,
-            k.`kode_kelas`, g.`nip`, g.`nama` AS nama_guru 
-            FROM classroom cr JOIN mata_pelajaran mp ON cr.`id_mata_pelajaran`=mp.`id`
-            JOIN grup_kelas gk ON cr.`id_grup_kelas`=gk.`id`
-            JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
-            JOIN siswa s ON gk.`nisn`=s.`nisn`
-            JOIN kelas k ON gk.`id_kelas`=k.`id`
-            JOIN guru g ON mp.`nip_guru`=g.`nip`
+        SELECT cr.`kode_room`, cr.`id_mata_pelajaran`, mp.`kode_mapel`, mo.`nama_mapel`, cr.`kode_walikelas`, wk.`id_kelas`, k.`kelas`, k.`kode_kelas`, g.`nama`
+        FROM classroom cr JOIN mata_pelajaran mp ON cr.`id_mata_pelajaran`=mp.`id`
+        JOIN walikelas wk ON cr.`kode_walikelas`=wk.`kode_wali`
+        JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+        JOIN kelas k ON wk.`id_kelas`=k.`id`
+        JOIN guru g ON mp.`nip_guru`=g.`nip`
        ');
    }
 
@@ -128,13 +125,10 @@ class Admin extends CI_Model
             WHERE k.`id`="'.$kelas_id.'"
         ')->row_array();
    }
-   public function siswa_grub(){
+   public function walikelas_get(){
         return $this->db->query('
-            SELECT gk.`id`, gk.`nisn`, s.`nama`, k.`kelas`, k.`kode_kelas`
-            FROM grup_kelas gk JOIN siswa s ON gk.`nisn`=s.`nisn`
-            JOIN kelas k ON gk.`id_kelas`=k.`id`
-            JOIN walikelas wk ON gk.`kode_walikelas`=wk.`kode_wali`
-            JOIN guru g ON wk.`nip_guru`=g.`nip`
+            SELECT wk.`id`, wk.`kode_wali`, wk.`id_kelas`, k.`kelas`, k.`kode_kelas`
+            FROM walikelas wk JOIN kelas k ON wk.`id_kelas`=k.`id`
         ');
    }
    public function guru_pengajar(){
@@ -143,5 +137,40 @@ class Admin extends CI_Model
             FROM mata_pelajaran mp JOIN guru g ON mp.`nip_guru`=g.`nip`
             JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
         ');
+   }
+    public function kota(){
+        return $this->db->get('regencies')->result();
+    }
+    public function provinsi(){
+        return $this->db->get('provinces')->result();
+    }
+    public function kota_in($where){
+        return $this->db->get_where('regencies',$where)->result();
+    }
+    public function kec_in($where){
+        return $this->db->get_where('districts',$where)->result();
+    }
+   public function update_guru($where,$data){
+        $this->db->where('nip',$where);
+        $data = $this->db->update('guru',$data);
+        return $data;
+   }
+   public function update_alamat($where,$alamat){
+    
+    $this->db->where('kode',$where);
+    // var_dump($where); die;
+    return $this->db->update('alamat_guru',$alamat);
+    
+   }
+   public function daftarnilai(){
+       return $this->db->query('
+        SELECT n.`id`, k.`kelas`, k.`kode_kelas`, n.`nisn`, s.`nama` AS nama_siswa, g.`nama` AS nama_guru, mo.`nama_mapel`, n.`nilai_tugas`,n.`nilai_uts`, n.`nilai_uas`
+        FROM nilai n JOIN grup_kelas gk ON n.`id_grup_kelas`=gk.`id`
+        JOIN siswa s ON n.`nisn`=s.`nisn`
+        JOIN mata_pelajaran mp ON n.`id_mata_pelajaran`=mp.`id`
+        JOIN kelas k ON gk.`id_kelas`=k.`id`
+        JOIN guru g ON mp.`nip_guru`=g.`nip`
+        JOIN mapel_only mo ON mp.`kode_mapel`=mo.`kode_pel`
+       ');
    }
 }

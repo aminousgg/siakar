@@ -54,7 +54,11 @@ class Perwalian extends CI_Controller {
         $where = array(
             'id_kelas'  => $this->input->post('id_kelas'),
         );
-        if($this->db->get_where('walikelas',$where)->num_rows()>0){
+        $guru = array(
+            'nip_guru'  => $this->input->post('nip'),
+        );
+
+        if($this->db->get_where('walikelas',$where)->num_rows()>0 || $this->db->get_where('walikelas',$guru)->num_rows()>0){
             $this->session->set_flashdata('alert_gagal','gagal menambah walikelas, kelas sudah terdaftar');
             redirect(base_url('admin/perwalian'));
         }else{

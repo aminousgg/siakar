@@ -19,10 +19,9 @@
             <thead>
             <tr>
                 <th>#</th>
-                <!-- <th>Kode room</th> -->
-                <th>Nama Siswa</th>
-                <th>Mata Pelajaran</th>
+                <th>Kode room</th>
                 <th>Kelas</th>
+                <th>Mata Pelajaran</th>
                 <th>Guru</th>
             </tr>
             </thead>
@@ -81,13 +80,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Nisn</label>
+                        <label class="col-sm-3 col-form-label">Pilih Kelas</label>
                         <div class="col-sm-9">
-                            <select class="js-source-states" name="id_grup_kelas" id="select_siswa_room" style="width: 100%">
-                                <option value="1">alsnfd</option>
-                                <option value="1">blsnfd</option>
-                                <option value="1">flsnfd</option>
-                                <option value="1">glsnfd</option>
+                            <select class="js-source-states" name="kode_wali" id="select_siswa_room" style="width: 100%">
+                                <option value="">-- Pilih Siswa --</option>
                             </select>
                         </div>
                     </div>

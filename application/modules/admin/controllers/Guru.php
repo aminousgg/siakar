@@ -28,7 +28,6 @@ class Guru extends CI_Controller {
             $tbody[]    = $row['no_hp'];
             $tbody[]    = $row['email'];
             $aksi = '<button class="btn btn-info edit_guru" data-id="'.$row['id'].'" type="button" data-toggle="modal" data-target="#edit_guru_m"><i class="fa fa-paste"></i> Edit</button>';
-            $aksi .= '<button class="btn btn-danger hapus" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Hapus</span></button>';
             $tbody[]    = $aksi;
             $data[]     = $tbody;
             $i++;
@@ -47,8 +46,12 @@ class Guru extends CI_Controller {
         }
     }
     public function view_edit(){
-        $id =  $this->input->get('id');
-        echo json_encode($this->db->get_where('guru',array('id'=>$id))->row_array());
+        $data = $this->db->query('
+        SELECT * 
+        FROM guru g JOIN alamat_guru a ON g.`nip`=a.`kode`
+        WHERE g.`id`="'.$this->input->get('id').'"
+        ')->row_array();
+        echo json_encode($data);
     }
     public function in_edit(){
         $data = array(
@@ -64,8 +67,41 @@ class Guru extends CI_Controller {
             'tgl_masuk'     => $this->input->post('tgl_masuk'),
             'no_hp'         => $this->input->post('no_hp'),
             'email'         => $this->input->post('email'),
+            'jabatan'       => $this->input->post('jabatan'),
             'kode_pos'      => "",
         );
-        var_dump($data);
+        $alamat = array(
+            'kode' => $this->input->post('nip'),
+            'detail' => $this->input->post('detail'),
+            'kecamatan' => $this->input->post('kec'),
+            'kota_kab'  => $this->input->post('kota'),
+            'provinsi'  => $this->input->post('prov')
+        );
+        // var_dump($data);
+        $nip_awal=$this->input->post('nip_awal');
+        if( $this->admin->update_guru($nip_awal,$data)&&$this->admin->update_alamat($nip_awal,$alamat) ) {
+            $this->session->set_flashdata('alert_success','Berhasil mengubah');
+            redirect(base_url('admin/guru'));
+        }
+    }
+    public function get_kota(){
+        echo json_encode($this->admin->kota());
+    }
+    public function get_prov(){
+        echo json_encode($this->admin->provinsi());
+    }
+    public function kotaFromprov(){
+        $id = $this->input->get('id');
+        $where = array(
+            'province_id' => $id
+        );
+        echo json_encode($this->admin->kota_in($where));
+    }
+    public function kecFromkota(){
+        $id = $this->input->get('id');
+        $where = array(
+            'regency_id' => $id
+        );
+        echo json_encode($this->admin->kec_in($where));
     }
 }

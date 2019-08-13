@@ -38,6 +38,9 @@
             <li>
                 <a href="<?= base_url('admin/perwalian') ?>"><span class="nav-label">Perwalian</span> </a>
             </li>
+            <li>
+                <a href="<?= base_url('admin/nilai') ?>"><span class="nav-label">Nilai Siswa</span> </a>
+            </li>
         </ul>
     </div>
 </aside>

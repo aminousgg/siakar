@@ -42,33 +42,36 @@
                     <div class="row m-b">
                         <div class="col-sm-6">
                             <label>NIP</label>
-                            <input name="nip" type="text" class="form-control">
+                            <input name="nip" id="nip_guru" type="text" class="form-control">
                         </div>
                         <div class="col-sm-6">
                             <label>Nama</label>
-                            <input name="nama" type="text" class="form-control">
+                            <input name="nama" id="nama_guru" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row m-b">
                         <div class="col-sm-4">
                             <label>Tempat Lahir</label>
-                            <select name="tmp_lahir" class="tempat_lahir" style="width:100%;">
+                            <select name="tmp_lahir" id="tempat_lahir" class="tempat_lahir" id="tempat_lahir" style="width:100%;">
 
                             </select>
                         </div>
                         <div class="col-sm-4">
                             <label>Tanggal Lahir</label>
-                            <input name="tgl_lahir" type="date" class="form-control">
+                            <input name="tgl_lahir" id="tgl_lahir_guru" type="date" class="form-control">
                         </div>
                         <div class="col-sm-4">
                             <label>Gender</label>
-                            <input name="gender" type="date" class="form-control">
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row m-b">
                         <div class="col-sm-6">
                             <label>Agama</label>
-                            <select name="agama" class="form-control">
+                            <select name="agama" id="agama_guru" class="form-control">
                                 <option value="Islam">Islam</option>
                                 <option value="Katholik">Katholik</option>
                                 <option value="Kristen">Kristen</option>
@@ -78,41 +81,41 @@
                         </div>
                         <div class="col-sm-6">
                             <label>Golongan Darah</label>
-                            <input name="goldar" type="text" class="form-control">
+                            <input name="goldar" id="goldar_guru" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row m-b">
                         <div class="col-sm-6">
                             <label>No HP</label>
-                            <input name="no_hp" type="text" class="form-control">
+                            <input name="no_hp" id="no_hp_guru" type="text" class="form-control">
                         </div>
                         <div class="col-sm-6">
                             <label>Email</label>
-                            <input name="email" type="text" class="form-control">
+                            <input name="email" id="email_guru" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row m-b">
                         <div class="col-sm-12">
                             <label>Alamat</label>
-                            <input name="alamat" type="text" class="form-control">
+                            <input name="detail" id="alamat_guru" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row m-b">
                         <div class="col-sm-4">
                             <label>Provinsi</label>
-                            <select name="prov" class="prov" style="width:100%;">
+                            <select name="prov" class="prov" id="prov" style="width:100%;">
                                 <option value="">Pilih Provinsi</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
                             <label>Kota</label>
-                            <select name="kota" class="kota" style="width:100%;">
+                            <select name="kota" class="kota" id="kota" style="width:100%;">
                                 <option value="">Pilih Kota/Kabupaten</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
                             <label>Kecamatan</label>
-                            <select name="kec" class="form-control kec">
+                            <select name="kec" id="kec" class="form-control kec">
                                 <option value="">Pilih Kecamatan</option>
                             </select>
                         </div>
@@ -120,15 +123,15 @@
                     <div class="row m-b">
                         <div class="col-sm-4">
                             <label>Tanggal Masuk</label>
-                            <input name="tgl_masuk" type="date" class="form-control">
+                            <input name="tgl_masuk" id="tgl_masuk" type="date" class="form-control">
                         </div>
                         <div class="col-sm-4">
                             <label>Jabatan</label>
-                            <input name="jabatan" type="text" class="form-control">
+                            <input name="jabatan" type="text" id="jabatan" class="form-control">
                         </div>
                         <div class="col-sm-4">
                             <label>Status</label>
-                            <select name="status" class="form-control">
+                            <select name="status" id="status_guru" class="form-control">
                                 <option value="Aktif">Aktif</option>
                                 <option value="Cuti">Cuti</option>
                                 <option value="Keluar">Keluar</option>
@@ -141,6 +144,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+                <input type="hidden" name="nip_awal" id="nip_awal">
             <?= form_close() ?>
         </div>
     </div>

@@ -118,6 +118,23 @@ $(document).ready(function(){
             success : function(data){
                 data = JSON.parse(data);
                 console.log(data);
+                $("#nip_awal").val(data.nip);
+                $("#nip_guru").val(data.nip);
+                $("#nama_guru").val(data.nama);
+                $("#tempat_lahir").val(data.tmp_lahir).trigger('change');
+                $("#tgl_lahir_guru").val(data.tgl_lahir);
+                $("#gender_guru").val(data.gender);
+                $("#agama_guru").val(data.agama);
+                $("#goldar_guru").val(data.golongan_darah);
+                $("#no_hp_guru").val(data.no_hp);
+                $("#email_guru").val(data.email);
+                $("#alamat_guru").val(data.detail);
+                $("#prov").val(data.provinsi).trigger('change');
+                $("#kota").val(data.kota_kab).trigger('change');
+                $("#kec").val(data.kecamatan).trigger('change');
+                $("#tgl_masuk").val(data.tgl_masuk);
+                $("#jabatan").val(data.jabatan);
+                $("#status_guru").val(data.status);
             }
         });
     });
@@ -127,7 +144,7 @@ $(document).ready(function(){
         });
         $.ajax({
             type		: "GET",
-            url			: "<?= base_url('auth/guru_baru/get_kota') ?>",
+            url			: "<?= base_url('admin/guru/get_kota') ?>",
             datatype 	: "JSON",
             success		: (data)=>{
                 var res = JSON.parse(data);
@@ -136,13 +153,13 @@ $(document).ready(function(){
                     // console.log(res[i].name);
                     isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
                 }
-                $('.tempat_lahir').html(isi);
+                $('#tempat_lahir').html(isi);
             }
         });
         // prov
         $.ajax({
             type		: "GET",
-            url			: "<?= base_url('auth/guru_baru/get_prov') ?>",
+            url			: "<?= base_url('admin/guru/get_prov') ?>",
             datatype 	: "JSON",
             success		: (data)=>{
                 var res = JSON.parse(data);
@@ -151,7 +168,7 @@ $(document).ready(function(){
                     // console.log(res[i].name);
                     isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
                 }
-                $('.prov').html(isi);
+                $('#prov').html(isi);
             }
         });
 
@@ -159,7 +176,7 @@ $(document).ready(function(){
             var id = $(this).val();
             $.ajax({
                 type		: "GET",
-                url			: "<?= base_url('auth/guru_baru/kotaFromprov') ?>",
+                url			: "<?= base_url('admin/guru/kotaFromprov') ?>",
                 datatype 	: "JSON",
                 data		: {id:id},
                 success		: (data)=>{
@@ -169,8 +186,8 @@ $(document).ready(function(){
                         // console.log(res[i].name);
                         isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
                     }
-                    $('.kota').html(isi);
-                    $('.kec').html("<option value=''>-- Pilih Kec --</option>");
+                    $('#kota').html(isi);
+                    $('#kec').html("<option value=''>-- Pilih Kec --</option>");
                 }
             });
         });
@@ -178,7 +195,7 @@ $(document).ready(function(){
             var id = $(this).val();
             $.ajax({
                 type		: "GET",
-                url			: "<?= base_url('auth/guru_baru/kecFromkota') ?>",
+                url			: "<?= base_url('admin/guru/kecFromkota') ?>",
                 datatype 	: "JSON",
                 data		: {id:id},
                 success		: (data)=>{
@@ -188,7 +205,7 @@ $(document).ready(function(){
                         // console.log(res[i].name);
                         isi += "<option value='"+res[i].id+"'>"+res[i].name+"</option>";
                     }
-                    $('.kec').html(isi);
+                    $('#kec').html(isi);
                 }
             });
         });
@@ -217,7 +234,8 @@ $(document).ready(function(){
     $(".js-source-states").select2();
     $('#classroom').dataTable({
         "ajax"  : "<?= base_url('admin/classroom/view_classroom') ?>",
-        "ordering": false
+        "ordering": false,
+        "processing" :true
     });
     $('#grup_kelas').dataTable({
         "ajax"    : "<?= base_url('admin/classroom/view_grupkelas') ?>",
@@ -227,13 +245,13 @@ $(document).ready(function(){
         $.ajax({
             type : "GET",
             datatype : "json",
-            url : "<?= base_url('admin/classroom/get_siswa_terdaftarwali') ?>",
+            url : "<?= base_url('admin/classroom/terdaftarwali') ?>",
             success : function(data){
                 data = JSON.parse(data);
                 // console.log(data);
-                var isi = '<option value="" hidden>-- Pilih Siswa --</option>';
+                var isi = '';
                 for(var i in data){
-                    isi += '<option value="'+data[i].id+'">'+data[i].nama+' - '+data[i].kelas+' '+data[i].kode_kelas+'</option>';
+                    isi += '<option value="'+data[i].kode_wali+'">'+data[i].kelas+' '+data[i].kode_kelas+'</option>';
                 }
                 $("#select_siswa_room").html(isi);
             }
@@ -375,6 +393,12 @@ $(document).ready(function(){
                 $("#guru_pilih").html(isi);
             }
         });
+    });
+
+    // daftar nilai
+    $('#daftarnilai').dataTable({
+        "ajax"    : "<?= base_url('admin/nilai/view_daftarnilai') ?>",
+        "ordering": false
     });
 
     // alert

@@ -39,24 +39,46 @@ class Classroom extends CI_Controller {
         $data = $this->admin->guru_mapel($mapel)->result();
         echo json_encode($data);
     }
-    public function get_siswa_terdaftarwali(){
-        echo json_encode($this->admin->siswa_grub()->result());
+    public function terdaftarwali(){
+        echo json_encode($this->admin->walikelas_get()->result());
     }
     public function guru_mapel(){
         echo json_encode($this->admin->guru_pengajar()->result());
     }
     public function tambah_classroom(){
-        $data = array(
-            'kode_room' => rand(1000,9999),
+        $where= array(
             'id_mata_pelajaran' => $this->input->post('id_mapel'),
-            'id_grup_kelas' => $this->input->post('id_grup_kelas'),
-            'tahun_ajaran' => "2019/2020"
+            'kode_walikelas'    => $this->input->post('kode_wali')
         );
-        if($this->db->insert('classroom',$data)){
-            $this->session->set_flashdata('alert_success','Berhasil menambah');
+        if($this->db->get_where('classroom',$where)->num_rows()>0){
+            $this->session->set_flashdata('alert_gagal', 'Gagal menambah kelas sudah terdaftar');
+            redirect(base_url('admin/classroom'));
+        }
+        $kode = rand(1000,9999);
+        $data = array(
+            'kode_room' => $kode,
+            'id_mata_pelajaran' => $this->input->post('id_mapel'),
+            'kode_walikelas'    => $this->input->post('kode_wali'),
+            'tahun_ajaran'      => "2019/2020"
+        );
+        $this->db->where('kode_walikelas', $this->input->post('kode_wali'));
+        $angkutan= $this->db->get('grup_kelas')->result();
+        $cek = 0;
+        foreach ($angkutan as $row){
+            $in = array(
+                'id_grup_kelas' => $row->id,
+                'nisn'  => $row->nisn,
+                'id_mata_pelajaran' => $this->input->post('id_mapel')
+            );
+            if($this->db->insert('nilai',$in)){
+                $cek++;
+            }
+        }
+        if($this->db->insert('classroom',$data) && $cek==sizeof($angkutan)){
+            $this->session->set_flashdata('alert_success', 'berhasil menambah');
             redirect(base_url('admin/classroom'));
         }else{
-            $this->session->set_flashdata('alert_gagal','Gagal menambah');
+            $this->session->set_flashdata('alert_gagal', 'Gagal menambah');
             redirect(base_url('admin/classroom'));
         }
     }
@@ -68,11 +90,10 @@ class Classroom extends CI_Controller {
         {
             $tbody      = array();
             $tbody[]    = $i;
-            // $tbody[]    = $row['kode_room'];
-            $tbody[]    = $row['nama_siswa'];
+            $tbody[]    = $row['kode_room'];
+            $tbody[]    = $row['kelas'].' - '.$row['kode_kelas'];
             $tbody[]    = $row['nama_mapel'];
-            $tbody[]    = $row['kelas']." ".$row['kode_kelas'];
-            $tbody[]    = $row['nama_guru'];
+            $tbody[]    = $row['nama'];
             $data[]     = $tbody;
             $i++;
         }
