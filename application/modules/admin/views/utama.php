@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="<?= base_url('homer') ?>/fonts/pe-icon-7-stroke/css/helper.css" />
     <link rel="stylesheet" href="<?= base_url('homer') ?>/styles/style.css">
     <link rel="stylesheet" href="<?= base_url('homer') ?>/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.css" />
-
+    
 </head>
 <body>
 
@@ -94,6 +94,8 @@
 <script src="<?= base_url('homer') ?>/vendor/peity/jquery.peity.min.js"></script>
 <script src="<?= base_url('homer') ?>/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('homer') ?>/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+
 <script src="<?= base_url('homer') ?>/vendor/sparkline/index.js"></script>
 <script src="<?= base_url('homer') ?>/vendor/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="<?= base_url('homer') ?>/vendor/toastr/build/toastr.min.js"></script>
@@ -399,6 +401,28 @@ $(document).ready(function(){
     $('#daftarnilai').dataTable({
         "ajax"    : "<?= base_url('admin/nilai/view_daftarnilai') ?>",
         "ordering": false
+    });
+    $("#shownilai").on('click', '.edit', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+        $.ajax({
+            type : "GET",
+            datatype : "json",
+            data : {id : id},
+            url : "<?= base_url('admin/nilai/getbyid') ?>",
+            success : function(data){
+                data=JSON.parse(data);
+                // console.log(data);
+                $(".id_daftar").val(data.id);
+                $(".nama").val(data.nama_siswa);
+                $(".matkul").val(data.nama_mapel);
+                $(".guru").val(data.nama_guru);
+                $(".tgs").val(data.nilai_tugas);
+                $(".uts").val(data.nilai_uts);
+                $(".uas").val(data.nilai_uas);
+            }
+
+        });
     });
 
     // alert

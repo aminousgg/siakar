@@ -5,10 +5,10 @@ class Main extends CI_Controller {
     function __construct() {
         parent::__construct();
         if(!$this->session->userdata('sesi')){
-            redirect(base_url('auth/main/siswa'));
+            redirect(base_url('login_siswa'));
         }
         if($this->session->userdata('sesi')['level']!='siswa'){
-            redirect(base_url('auth/main/siswa'));
+            redirect(base_url('login_siswa'));
         }
         if($this->session->userdata('sesi')=='private'){
             redirect(base_url('auth/siswa_baru'));
