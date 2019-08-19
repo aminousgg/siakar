@@ -40,9 +40,10 @@
 						$this->load->view('guru/komponen/panel-head');
 					}
 				?>
-				<?php  ?>
 				<!-- isi -->
-				<?php //$this->load->view('guru/dashboard') ?>
+				<div class="page-inner">
+					<?php $this->load->view($file); ?>
+				</div>
 				<!-- end isi -->
 			</div>
 			<!-- footer -->
@@ -95,6 +96,66 @@
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="<?= base_url('assets') ?>/assets/js/setting-demo.js"></script>
 	<!-- <script src="<?= base_url('assets') ?>/assets/js/demo.js"></script> -->
+
+<script>
+	// mengajar
+	$('#table_mengajar').DataTable({
+		"ajax"	: "<?= base_url('guru/mengajar/index?nip='.$this->session->userdata('sesi')['nip']) ?>",
+		"ordering" : false,
+		"processing" : true
+	});
+	// detail_mengajar
+	<?php if($this->uri->segment(3) == 'daftarsiswabymapel'){ ?>
+		$('#detail_mengajar').DataTable({
+			"ajax"	: "<?= base_url('guru/mengajar/show_siswabymapel/'.$kode_mapel) ?>",
+			"ordering" : false,
+			"processing" : true
+		});
+	<?php } ?>
+	// perwalian
+	$('#table_perwalian').DataTable({
+		"ajax"	: "<?= base_url('guru/perwalian/index?nip='.$this->session->userdata('sesi')['nip']) ?>",
+		"ordering" : false,
+		"processing" : true
+	});
+	// table nilai
+	<?php if($this->uri->segment(2) == 'daftar_nilai'){ ?>
+		$(".cardnilai").hide();
+		var nip = "<?= $this->session->userdata('sesi')['nip'] ?>";
+		var link = "";
+		$.ajax({
+			type : "GET",
+			datatype : "json",
+			data : {nip : nip},
+			url : "<?= base_url('guru/daftar_nilai/get_mapel') ?>",
+			success : function(data){
+				data = JSON.parse(data);
+				var isi = '<option value="">-- Pilih Mapel --</option>';
+				for(var i in data){
+					isi += '<option value="'+data[i].kode_mapel+'">'+data[i].nama_mapel+'</option>';
+				}
+				$("#select_mapel").html(isi);
+			}
+		});
+		$("#select_mapel").on('change', function(){
+			var kode_mapel = String($(this).val());
+			if(kode_mapel){
+				setTable(kode_mapel);
+				$(".cardnilai").show();
+			}else{
+				$(".cardnilai").hide();
+			}
+		});
+		function setTable(kode_mapel){
+			var table = $('#table_nilai').DataTable({
+				"ajax"	: "<?= base_url('guru/daftar_nilai/show') ?>?mapel="+kode_mapel,
+				"ordering" : false,
+				"processing" : true
+			});
+			table.destroy();
+		}
+	<?php } ?>
+</script>
 	
 </body>
 </html>

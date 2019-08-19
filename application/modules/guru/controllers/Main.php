@@ -16,11 +16,13 @@ class Main extends CI_Controller {
         if($this->session->userdata('sesi')=='private_guru'){
             redirect(base_url('auth/guru_baru'));
         }
+        $this->load->model('Model_guru','guru');
     }
 	//functions
 	public function index(){
         $data['judul']="Menu Utama";
         $data['sub_judul']="Dashboard";
+        $data['file']="dashboard";
         $this->load->view('guru/utama',$data);
     }
     

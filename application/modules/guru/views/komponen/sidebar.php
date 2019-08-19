@@ -31,25 +31,25 @@
 							<h4 class="text-section">Menu</h4>
 						</li>
 						<li class="nav-item">
-							<a data-toggle="collapse" href="#charts">
+							<a data-toggle="collapse" href="#akademik">
 								<i class="fas fa-bookmark"></i>
 								<p>Akademik</p>
 								<span class="caret"></span>
 							</a>
-							<div class="collapse" id="charts">
+							<div class="collapse" id="akademik">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="charts/charts.html">
+										<a href="<?= base_url('guru/mengajar') ?>">
 											<span class="sub-item">Mengajar</span>
 										</a>
 									</li>
 									<li>
-										<a href="charts/sparkline.html">
+										<a href="<?= base_url('guru/perwalian') ?>">
 											<span class="sub-item">Perwalian</span>
 										</a>
 									</li>
 									<li>
-										<a href="charts/sparkline.html">
+										<a href="<?= base_url('guru/daftar_nilai') ?>">
 										  <span class="sub-item">Daftar Nilai</span>
 										</a>
 									</li>
@@ -57,12 +57,12 @@
 							</div>
 						</li>
 						<li class="nav-item">
-							<a data-toggle="collapse" href="#charts">
+							<a data-toggle="collapse" href="#dokumen">
 								<i class="fas fa-book"></i>
 								<p>Dokumen</p>
 								<span class="caret"></span>
 							</a>
-							<div class="collapse" id="charts">
+							<div class="collapse" id="dokumen">
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="charts/charts.html">
@@ -78,12 +78,12 @@
 							</div>
 						</li>
 						<li class="nav-item">
-							<a data-toggle="collapse" href="#charts">
+							<a data-toggle="collapse" href="#profile">
 								<i class="fas fa-address-card"></i>
 								<p>Profile | Biodata</p>
 								<span class="caret"></span>
 							</a>
-							<div class="collapse" id="charts">
+							<div class="collapse" id="profile">
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="charts/charts.html">
