@@ -29,7 +29,10 @@ class Daftar_nilai extends CI_Controller {
         $nip = $this->input->get('nip');
         echo json_encode($this->guru->showmapel($nip)->result());
     }
-
+    public function showedit(){
+        $id = $this->input->get('id');
+        echo json_encode($this->guru->shownilai_up($id)->row_array());
+    }
     public function show(){
         $mapel = $this->input->get('mapel');
         $response = $this->guru->shownilai($mapel)->result_array();
@@ -43,7 +46,7 @@ class Daftar_nilai extends CI_Controller {
             $tbody[]    = $row['nilai_tugas'];
             $tbody[]    = $row['nilai_uts'];
             $tbody[]    = $row['nilai_uas'];
-            $tbody[]    = "soon";
+            $tbody[]    = '<button class="btn btn-primary btn-sm tombol_nilai" data-id="'.$row['id'].'" data-toggle="modal" data-target="#set_nilai"><i class="la flaticon-file-1"></i></button>';
             $data[]     = $tbody;
             $i++;
         }

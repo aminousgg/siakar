@@ -24,6 +24,9 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="<?= base_url('assets') ?>/assets/css/demo.css">
+	<style>
+	.w3-animate-top{animation:animatetop 0.4s}@keyframes animatetop{from{top:-100px;opacity:0} to{top:0;opacity:1}}
+	</style>
 </head>
 <body data-background-color="bg3">
 	<div class="wrapper">
@@ -130,7 +133,7 @@
 			url : "<?= base_url('guru/daftar_nilai/get_mapel') ?>",
 			success : function(data){
 				data = JSON.parse(data);
-				var isi = '<option value="">-- Pilih Mapel --</option>';
+				var isi = '<option hidden value="">-- Pilih Mapel --</option>';
 				for(var i in data){
 					isi += '<option value="'+data[i].kode_mapel+'">'+data[i].nama_mapel+'</option>';
 				}
@@ -142,6 +145,7 @@
 			if(kode_mapel){
 				setTable(kode_mapel);
 				$(".cardnilai").show();
+				kode_mapel='';
 			}else{
 				$(".cardnilai").hide();
 			}
@@ -150,11 +154,31 @@
 			var table = $('#table_nilai').DataTable({
 				"ajax"	: "<?= base_url('guru/daftar_nilai/show') ?>?mapel="+kode_mapel,
 				"ordering" : false,
-				"processing" : true
+				"processing" : true,
+				"destroy" : true,
 			});
-			table.destroy();
 		}
 	<?php } ?>
+	// daftarnilai
+	$("#table_daftarnilai").on('click', '.tombol_nilai', function(){
+		var id = $(this).data('id');
+		$.ajax({
+			type :"get",
+			datatype : "json",
+			data : {id : id},
+			url : "<?= base_url('guru/daftar_nilai/showedit') ?>",
+			success : function(data){
+				data = JSON.parse(data);
+				// console.log(data);
+				$(".nama").val(data.nama_siswa);
+				$(".nisn").val(data.nisn);
+				$(".kelas").val(data.kelas+" "+data.kode_kelas);
+				$(".tgs").val(data.nilai_tugas);
+				$(".uts").val(data.nilai_uts);
+				$(".uas").val(data.nilai_uas);
+			}
+		});
+	});
 </script>
 	
 </body>
