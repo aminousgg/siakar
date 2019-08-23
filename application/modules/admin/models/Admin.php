@@ -93,10 +93,12 @@ class Admin extends CI_Model
    }
    public function walikelas(){
        return $this->db->query('
-            SELECT wk.`id`, wk.`kode_wali`, wk.`id_kelas`, wk.`tahun_ajaran`, k.`kelas`, k.`kode_jurusan`, j.`jurusan`, k.`kode_kelas`, wk.`nip_guru`, g.`nama`
+            SELECT wk.`id`, wk.`kode_wali`, wk.`id_kelas`, k.`kelas`, k.`kode_jurusan`, j.`jurusan`, k.`kode_kelas`, wk.`nip_guru`, g.`nama`, ta.`tahun`
             FROM walikelas wk JOIN kelas k ON wk.`id_kelas`=k.`id`
             JOIN guru g ON wk.`nip_guru`=g.`nip`
             JOIN jurusan j ON k.`kode_jurusan`=j.`kode_jurusan`
+            JOIN tahun_ajaran ta ON wk.`id_tahun_ajaran`=ta.`id`
+
        ');
    }
 
@@ -185,5 +187,8 @@ class Admin extends CI_Model
             WHERE n.`id`="'.$id.'"
         ');
        }
+   }
+   public function show_tahunajaran(){
+       return $this->db->get('tahun_ajaran');
    }
 }

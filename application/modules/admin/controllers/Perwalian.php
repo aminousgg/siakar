@@ -24,7 +24,7 @@ class Perwalian extends CI_Controller {
             $tbody[]    = $i;
             $tbody[]    = $row['kelas'].'-'.$row['kode_kelas'];
             $tbody[]    = $row['nama'];
-            $tbody[]    = $row['tahun_ajaran'];
+            $tbody[]    = $row['tahun'];
             $aksi = '<button class="btn btn-info" type="button"><i class="fa fa-paste"></i> Edit</button>';
             $aksi .= '<button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Hapus</span></button>';
             $tbody[]    = $aksi;

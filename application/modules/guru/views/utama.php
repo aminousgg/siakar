@@ -26,6 +26,7 @@
 	<link rel="stylesheet" href="<?= base_url('assets') ?>/assets/css/demo.css">
 	<style>
 	.w3-animate-top{animation:animatetop 0.4s}@keyframes animatetop{from{top:-100px;opacity:0} to{top:0;opacity:1}}
+	.animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
 	</style>
 </head>
 <body data-background-color="bg3">

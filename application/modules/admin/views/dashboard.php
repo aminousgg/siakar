@@ -1,74 +1,33 @@
-        <div class="row">
-            <div class="col-md-3">
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <div class="stats-title pull-left">
-                            <h4>Page Views</h4>
-                        </div>
-                        <div class="stats-icon pull-right">
-                            <i class="pe-7s-monitor fa-4x"></i>
-                        </div>
-                        <div class="m-t-xl">
-                            <h1 class="text-success">160k+</h1>
-                            <small>
-                                Lorem Ipsum is simply dummy text of the printing and <strong>typesetting industry</strong>. Lorem Ipsum has been.
-                            </small>
-                        </div>
-                    </div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="hpanel">
+            <div class="panel-heading">
+                <div class="panel-tools">
+                    <button type="button" class="btn btn-primary btn-xs">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    <a class="closebox"><i class="fa fa-times"></i></a>
                 </div>
+                Tahun Ajaran
             </div>
-            <div class="col-md-3">
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <div class="stats-title pull-left">
-                            <h4>Acite Views</h4>
-                        </div>
-                        <div class="stats-icon pull-right">
-                            <i class="pe-7s-shuffle fa-4x"></i>
-                        </div>
-                        <div class="m-t-xl">
-                            <h1 class="text-info">462</h1>
-                            <small>
-                                Lorem Ipsum is simply dummy text of the printing and <strong>typesetting industry</strong>. Lorem Ipsum has been.
-                            </small>
-                        </div>
-                    </div>
-                </div>
+            <div class="panel-body">
+                <table id="tahun_ajaran" cellpadding="1" cellspacing="1" class="table table-condensed table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tahun Ajaran</th>
+                        <th>Semester</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+
             </div>
-            <div class="col-md-3">
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <div class="stats-title pull-left">
-                            <h4>Income</h4>
-                        </div>
-                        <div class="stats-icon pull-right">
-                            <i class="pe-7s-ticket fa-4x"></i>
-                        </div>
-                        <div class="m-t-xl">
-                            <h1 class="text-warning">$200,00</h1>
-                            <small>
-                                Lorem Ipsum is simply dummy text of the printing and <strong>typesetting industry</strong>. Lorem Ipsum has been.
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <div class="stats-title pull-left">
-                            <h4>Messages</h4>
-                        </div>
-                        <div class="stats-icon pull-right">
-                            <i class="pe-7s-attention fa-4x"></i>
-                        </div>
-                        <div class="m-t-xl">
-                            <h1 class="text-danger">680</h1>
-                            <small>
-                                Lorem Ipsum is simply dummy text of the printing and <strong>typesetting industry</strong>. Lorem Ipsum has been.
-                            </small>
-                        </div>
-                    </div>
-                </div>
+            <div class="panel-footer">
             </div>
         </div>
+    </div>
+</div>

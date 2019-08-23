@@ -18,8 +18,12 @@
 						</div>
 					</div>
 					<ul class="nav nav-primary">
+						<?php if(!$this->uri->segment(2)){ ?>
 						<li class="nav-item active">
-							<a href="" class="collapsed" aria-expanded="false">
+						<?php }else{ ?>
+						<li class="nav-item">
+						<?php } ?>
+							<a href="<?= base_url('guru') ?>" class="collapsed" aria-expanded="false">
 								<i class="fas fa-home"></i>
 								<p>Dashboard</p>
 							</a>
@@ -30,13 +34,21 @@
 							</span>
 							<h4 class="text-section">Menu</h4>
 						</li>
+						<?php if($this->uri->segment(2)=="mengajar" || $this->uri->segment(2)=="perwalian" || $this->uri->segment(2)=="daftar_nilai"){ ?>
+						<li class="nav-item active submenu">
+						<?php }else{ ?>
 						<li class="nav-item">
+						<?php } ?>
 							<a data-toggle="collapse" href="#akademik">
 								<i class="fas fa-bookmark"></i>
 								<p>Akademik</p>
 								<span class="caret"></span>
 							</a>
+							<?php if($this->uri->segment(2)=="mengajar" || $this->uri->segment(2)=="perwalian" || $this->uri->segment(2)=="daftar_nilai"){ ?>
+							<div class="collapse show" id="akademik">
+							<?php }else{ ?>
 							<div class="collapse" id="akademik">
+							<?php } ?>
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="<?= base_url('guru/mengajar') ?>">

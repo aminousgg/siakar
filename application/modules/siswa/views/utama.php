@@ -42,7 +42,7 @@
 				?>
 				<?php  ?>
 				<!-- isi -->
-				<?php $this->load->view('siswa/dashboard') ?>
+				<?php $this->load->view($file) ?>
 				<!-- end isi -->
 			</div>
 			<!-- footer -->
@@ -95,6 +95,16 @@
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="<?= base_url('assets') ?>/assets/js/setting-demo.js"></script>
 	<!-- <script src="<?= base_url('assets') ?>/assets/js/demo.js"></script> -->
-	
+<script>
+$(document).ready(function(){
+	var nisn = "<?= $this->session->userdata('sesi')['nisn'] ?>";
+	$('#table_mapel').DataTable({
+		"ajax" : "<?= base_url('siswa/akademik/get_mapelsiswa?nisn=') ?>"+nisn,
+		"ordering" :false,
+		"processing" : true
+	});
+});
+</script>
+
 </body>
 </html>

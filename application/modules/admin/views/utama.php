@@ -104,6 +104,11 @@
 <script src="<?= base_url('homer') ?>/scripts/homer.js"></script>
 <script>
 $(document).ready(function(){
+    // dashboard
+    $("#tahun_ajaran").dataTable({
+        "ajax"    : "<?= base_url('admin/main/tahun_ajaran') ?>",
+        "ordering": false
+    });
     // guru
     var page = "<?= $judul ?>";
     $('#tabledata').dataTable({

@@ -18,6 +18,7 @@ class Main extends CI_Controller {
 	public function index(){
         $data['judul']="Menu Utama";
         $data['sub_judul']="Dashboard";
+        $data['file']="dashboard";
         $this->load->view('siswa/utama',$data);
     }
     

@@ -31,15 +31,15 @@
 							<h4 class="text-section">Menu</h4>
 						</li>
 						<li class="nav-item">
-							<a data-toggle="collapse" href="#charts">
+							<a data-toggle="collapse" href="#akademik">
 								<i class="fas fa-bookmark"></i>
 								<p>Akademik</p>
 								<span class="caret"></span>
 							</a>
-							<div class="collapse" id="charts">
+							<div class="collapse" id="akademik">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="charts/charts.html">
+										<a href="<?= base_url('siswa/akademik/mapel') ?>">
 											<span class="sub-item">Mata Pelajaran</span>
 										</a>
 									</li>
